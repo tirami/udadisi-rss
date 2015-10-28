@@ -75,19 +75,20 @@ engine_uri = "http://localhost:4000/"
 
 
 # main mining function
-for uri in uris:
-    try:
-        feed = feedparser.parse(uri)
-        for entry in feed['entries']:
-            timestamp = get_timestamp(entry)
-            mined_at = int(time.time()) # now
-            text = get_summary(entry)
-            uri = get_link(entry)
-            if len(text) == 0:
-                # if there is no summary, try and follow the link to the site
-                text = download_page(uri)
-            terms = extract_terms(text)
-            post = construct_post(terms, uri, timestamp, mined_at, miner_name)
-            sent_to_engine(post)
-    except Exception as e:
-        print e.message, e.args
+def run_miner():
+    for uri in uris:
+        try:
+            feed = feedparser.parse(uri)
+            for entry in feed['entries']:
+                timestamp = get_timestamp(entry)
+                mined_at = int(time.time()) # now
+                text = get_summary(entry)
+                uri = get_link(entry)
+                if len(text) == 0:
+                    # if there is no summary, try and follow the link to the site
+                    text = download_page(uri)
+                terms = extract_terms(text)
+                post = construct_post(terms, uri, timestamp, mined_at, miner_name)
+                sent_to_engine(post)
+        except Exception as e:
+            print e.message, e.args
