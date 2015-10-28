@@ -60,22 +60,16 @@ def construct_post(terms, uri, time, mined_at, miner_name):
     return data
 
 
-def sent_to_engine(post):
-    req = urllib2.Request(engine_uri, post, {'Content-Type': 'application/json'})
+def sent_to_engine(post, uri):
+    req = urllib2.Request(uri, post, {'Content-Type': 'application/json'})
     try:
         urllib2.urlopen(req)
     except:
         print "Error posting to aggrigation server."
 
 
-# settings
-uris = ["https://news.ycombinator.com/rss", "http://feeds.bbci.co.uk/news/technology/rss.xml?edition=uk"]
-miner_name = "RSS miner one: BBC and Hacker News"
-engine_uri = "http://localhost:4000/"
-
-
 # main mining function
-def run_miner():
+def run_miner(miner_name, uris, engine_uri):
     for uri in uris:
         try:
             feed = feedparser.parse(uri)
@@ -89,6 +83,6 @@ def run_miner():
                     text = download_page(uri)
                 terms = extract_terms(text)
                 post = construct_post(terms, uri, timestamp, mined_at, miner_name)
-                sent_to_engine(post)
+                sent_to_engine(post, engine_uri)
         except Exception as e:
             print e.message, e.args
