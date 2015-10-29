@@ -1,12 +1,17 @@
 from miner import run_miner
 import threading
 import time
+import yaml
 
-# settings
-uris = ["https://news.ycombinator.com/rss", "http://feeds.bbci.co.uk/news/technology/rss.xml?edition=uk"]
-miner_name = "RSS miner one: BBC and Hacker News"
-engine_uri = "http://localhost:4000/"
-interval = 10 # in seconds
+def load_settings():
+    settings_file = open('settings.yaml')
+    s = yaml.safe_load(settings_file)
+    settings_file.close()
+    return s['uris'], s['miner_name'], s['engine_uri'], s['interval']
+
+
+uris, miner_name, engine_uri, interval = load_settings()
+
 
 def run_miner_every_interval():
     while True:
