@@ -16,26 +16,30 @@ def load_settings():
 
 
 def save_settings(new_settings):
-    current_settings = new_settings
     f = open('settings.yaml', "w")
-    yaml.dump(current_settings, f, default_flow_style=False, encoding='utf-8')
+    yaml.dump(new_settings, f, default_flow_style=False, encoding='utf-8')
     f.close()
 
 
-current_settings = load_settings()
+class MinerThread(threading.Thread):
+    def __init__(self, settings):
+        super(MinerThread, self).__init__()
+        self.settings = settings
 
-def run_miner_every_interval():
-    while True:
-        run_miner(current_settings['uris'],
-                  current_settings['miner_name'],
-                  current_settings['engine_uri'])
-        time.sleep(current_settings['interval'])
+    def run(self):
+        while True:
+            run_miner(  self.settings['miner_name'],
+                        self.settings['uris'],
+                        self.settings['engine_uri'])
+            interval = self.settings['interval']
+
+            time.sleep(float(interval))
+
+    def reset(self, settings):
+        self.settings = settings
 
 
-def start_miner():
-    miner_thread = threading.Thread(target=run_miner_every_interval)
-    miner_thread.start()
-
+miner_thread = MinerThread(load_settings())
 
 integer_re = re.compile(r'^[0-9]+$');
 
@@ -80,15 +84,21 @@ app.config['DEBUG'] = True
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
     if request.method == 'GET':
-        return render_template('settings.html', settings=current_settings, errors={})
+        settings = load_settings()
+        return render_template('settings.html', settings=settings, errors={})
     elif request.method == "POST":
         has_errors, errors = validate_settings(request.form)
         if has_errors:
             return render_template('settings.html', settings=request.form, errors=errors)
         else:
-            new_settings = { k: request.form[k] for k in ['uris', 'miner_name', 'engine_uri', 'interval'] }
-            save_settings(new_settings)
-            return render_template('settings.html', settings=current_settings, success=True)
+            # save the settings while filtering out unknown keys
+            settings = { k: str(request.form[k]) for k in ['uris', 'miner_name', 'engine_uri', 'interval'] }
+            settings['uris'] = [ s.strip() for s in settings['uris'].split(',')]
+            save_settings(settings)
+            miner_thread.reset(settings)
+            if not miner_thread.is_alive():
+                miner_thread.start()
+            return render_template('settings.html', settings=settings, success=True)
 
 
 app.run()

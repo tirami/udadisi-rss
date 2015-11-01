@@ -36,7 +36,7 @@
 
             <div class="form-group {% if 'uris' in errors %} has-error {% endif %}">
                 <label for="uris">RSS feeds</label>
-                <textarea class="form-control" rows="3" id="uris" name="uris" placeholder="List of RSS feeds to miner.">{{ ', '.join(settings['uris']) }}</textarea>
+                <textarea class="form-control" rows="3" id="uris" name="uris" placeholder="List of RSS feeds to miner.">{{ ", ".join(settings['uris']) }}</textarea>
                  {% if 'uris' in errors %} <span class="help-block">{{errors['uris']}}</span> {% endif %}
             </div>
 
