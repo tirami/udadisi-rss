@@ -1,5 +1,6 @@
 from BeautifulSoup import BeautifulSoup
 from collections import defaultdict
+import base64
 import feedparser
 import json
 import nltk
@@ -8,6 +9,8 @@ import time
 from time import mktime
 import urllib
 import urllib2
+
+mined_posts_hashes = []
 
 def get_summary(entry):
     summary = entry['summary']
@@ -75,14 +78,20 @@ def run_miner(miner_name, uris, engine_uri):
             feed = feedparser.parse(uri)
             for entry in feed['entries']:
                 timestamp = get_timestamp(entry)
-                mined_at = int(time.time()) # now
                 text = get_summary(entry)
                 uri = get_link(entry)
-                if len(text) == 0:
-                    # if there is no summary, try and follow the link to the site
-                    text = download_page(uri)
-                terms = extract_terms(text)
-                post = construct_post(terms, uri, timestamp, mined_at, miner_name)
-                sent_to_engine(post, engine_uri)
+                hash_str = str(timestamp) + text + uri
+                hash = base64.encodestring(hash_str)
+                if hash not in mined_posts_hashes:
+                    mined_at = int(time.time()) # now
+                    if len(text) == 0:
+                        # if there is no summary, try and follow the link to the site
+                        text = download_page(uri)
+                    terms = extract_terms(text)
+                    post = construct_post(terms, uri, timestamp, mined_at, miner_name)
+                    sent_to_engine(post, engine_uri)
+                    mined_posts_hashes.append(hash)
+                else:
+                    print("Post already mined")
         except Exception as e:
             print e.message, e.args
