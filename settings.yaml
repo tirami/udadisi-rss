@@ -1,6 +1,5 @@
-uris:
-  - https://news.ycombinator.com/rss
-  - http://feeds.bbci.co.uk/news/technology/rss.xml?edition=uk
-miner_name: BBC and Hacker News
-engine_uri: http://localhost:4000/
-interval: 10
+engine_uri: !!python/unicode 'http://localhost:4000/'
+interval: !!python/unicode '10'
+miner_name: !!python/unicode 'BBC and Hacker News'
+uris: !!python/unicode 'https://news.ycombinator.com/rss, http://feeds.bbci.co.uk/news/technology/rss.xml?edition=uk,
+  http://feeds.bbci.co.uk/news/technology/rss.xml?edition=uk'

@@ -14,8 +14,15 @@ def load_settings():
     settings_file.close()
     return s
 
-current_settings = load_settings()
 
+def save_settings(new_settings):
+    current_settings = new_settings
+    f = open('settings.yaml', "w")
+    yaml.dump(current_settings, f, default_flow_style=False, encoding='utf-8')
+    f.close()
+
+
+current_settings = load_settings()
 
 def run_miner_every_interval():
     while True:
@@ -79,8 +86,9 @@ def settings():
         if has_errors:
             return render_template('settings.html', settings=request.form, errors=errors)
         else:
-            return 'OK', 200
-
+            new_settings = { k: request.form[k] for k in ['uris', 'miner_name', 'engine_uri', 'interval'] }
+            save_settings(new_settings)
+            return render_template('settings.html', settings=current_settings, success=True)
 
 
 app.run()
