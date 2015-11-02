@@ -51,12 +51,12 @@ def extract_terms(text):
 
 def construct_post(terms, uri, time, mined_at, miner_name):
     post = {
-        "post" : {
+        "posts" : [{
            "terms": terms,
            "url": uri,
            "datetime": time,
            "mined_at": mined_at
-        },
+        }],
         "miner_id" : miner_name
     }
     data = json.dumps(post)
@@ -92,6 +92,6 @@ def run_miner(miner_name, uris, engine_uri):
                     sent_to_engine(post, engine_uri)
                     mined_posts_hashes.append(hash)
                 else:
-                    print("Post already mined")
+                    print("Post already mined.")
         except Exception as e:
             print e.message, e.args
