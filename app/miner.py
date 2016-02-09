@@ -44,8 +44,9 @@ class RssMiner(Thread):
 
     def run(self):
         self.log("Starting mining.")
-        urls = self.category.urls.split(',')
+        urls = [url.strip() for url in self.category.urls.split(',')]
         for url in urls:
+            self.log("Reading feed at: " + url)
             try:
                 feed = feedparser.parse(url)
                 for entry in feed['entries']:
@@ -67,7 +68,8 @@ class RssMiner(Thread):
     def mine_url(self, url, time_created):
         try:
             visible_text, last_modified = self.download_page(url)
-            text_hash = hashlib.sha1(visible_text.encode('utf-8'))
+            text_hash = hashlib.sha1(url.encode('utf-8'))
+            self.log("Mining link at " + url)
             if text_hash not in self.mined_posts_hashes:
                 terms_dict = extract.extract_terms(visible_text)
                 now = datetime.now().strftime('%Y%m%d%H%M')

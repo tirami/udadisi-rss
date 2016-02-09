@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="efdcd102-c2a3-4320-b634-4db6947d4481" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/app.py" afterPath="$PROJECT_DIR$/app/app.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/extract.py" afterPath="$PROJECT_DIR$/app/extract.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/miner.py" afterPath="$PROJECT_DIR$/app/miner.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/categories/settings001.yaml" afterPath="$PROJECT_DIR$/categories/settings001.yaml" />
     </list>
@@ -39,8 +37,8 @@
       <file leaf-file-name="miner.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/miner.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.332">
-              <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.122">
+              <caret line="46" column="39" selection-start-line="46" selection-start-column="39" selection-end-line="46" selection-end-column="39" />
               <folding>
                 <element signature="e#0#39#0" expanded="true" />
               </folding>
@@ -413,7 +411,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="45" />
+      <option name="time" value="48" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -575,8 +573,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/miner.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.332">
-          <caret line="51" column="0" selection-start-line="51" selection-start-column="0" selection-end-line="51" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.122">
+          <caret line="46" column="39" selection-start-line="46" selection-start-column="39" selection-end-line="46" selection-end-column="39" />
           <folding>
             <element signature="e#0#39#0" expanded="true" />
           </folding>

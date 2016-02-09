@@ -1,4 +1,4 @@
 interval: '10'
 name: Hacker News RSS
 parent_id: http://localhost:4000
-urls: http://www.businessdailyafrica.com/-/539444/539444/-/view/asFeed/-/xs2vhb/-/index.xml
+urls: http://www.africaresearchinstitute.org/feed/, http://www.thedailystar.net/business/rss.xml
