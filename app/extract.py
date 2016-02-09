@@ -23,7 +23,7 @@ def remove_urls(text):
 
 
 def remove_non_whitelisted_characters(text):
-    regex = re.compile('[^@a-zA-Z\s]')
+    regex = re.compile('[^@a-zA-Z ]')
     return regex.sub(' ', text)
 
 

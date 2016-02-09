@@ -28,7 +28,10 @@ def get_link(entry):
 
 
 def get_time(entry):
-    t = entry['published_parsed']
+    if 'published_parsed' in entry:
+        t = entry['published_parsed']
+    elif 'updated_parsed' in entry:
+        t = entry['updated_parsed']
     dt = datetime.fromtimestamp(time.mktime(t))
     return dt
 
@@ -53,6 +56,7 @@ class RssMiner(Thread):
 
             except Exception as e:
                 print e.message, e.args
+        self.log("Mining Complete")
 
     def stop(self):
         self.log("Stopping mining.")
