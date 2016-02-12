@@ -4,7 +4,7 @@ from nltk.corpus import stopwords
 import HTMLParser
 import re
 
-stop = stopwords.words('english')
+stop = stopwords.words('english') + stopwords.words('spanish')
 tags_to_remove = ['PRP', 'PRP$', 'RP', 'TO', 'IN']
 
 
@@ -33,7 +33,7 @@ def remove_twitter_usernames(text):
 
 
 def remove_stopwords(tagged):
-    terms = [word for word in tagged if word.lower() not in stop and len(word) > 0]
+    terms = [word for word in tagged if word.lower() not in stop and len(word) > 1]
     return terms
 
 
