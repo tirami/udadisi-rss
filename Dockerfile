@@ -1,4 +1,4 @@
-FROM ubuntu:14.04
+FROM ubuntu:15.10
 
 RUN mkdir /udadisi-rss
 ADD . /udadisi-rss
