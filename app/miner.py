@@ -18,8 +18,11 @@ from BeautifulSoup import BeautifulSoup
 
 
 def get_summary(entry):
-    summary = entry['summary']
-    return summary
+    if 'description' in entry:
+        return entry['description']
+    if 'summary' in entry:
+        return entry['summary']
+    return ""
 
 
 def get_link(entry):
@@ -50,10 +53,13 @@ class RssMiner(Thread):
             try:
                 feed = feedparser.parse(url)
                 for entry in feed['entries']:
-                    time = get_time(entry)
+                    created_time = get_time(entry)
                     text = get_summary(entry)  # not currently being mined
                     url = get_link(entry)
-                    self.mine_url(url, time)
+                    if text:
+                        self.mine(text, created_time, url)
+                    else:
+                        self.mine_url(url, time)
 
             except Exception as e:
                 print e.message, e.args
@@ -65,19 +71,25 @@ class RssMiner(Thread):
     def log(self, text):
         print "Miner:{} - {}".format(self.category.id, text)
 
+    def mine(self, text, time_created, link_url):
+        try:
+            terms_dict = extract.extract_terms(text)
+            now = datetime.now().strftime('%Y%m%d%H%M')
+            t = time_created.strftime('%Y%m%d%H%M')
+            post = RssMiner.dict_of_post(link_url, terms_dict, t, now)
+            batch = RssMiner.package_batch_to_json(self.category.id, [post])
+            self.send_to_parent(self.category.parent_id, batch)
+            self.mined_posts_hashes.append(hash)
+        except Exception as e:
+            print e.message, e.args
+
     def mine_url(self, url, time_created):
         try:
             visible_text, last_modified = self.download_page(url)
             text_hash = hashlib.sha1(url.encode('utf-8'))
             self.log("Mining link at " + url)
             if text_hash not in self.mined_posts_hashes:
-                terms_dict = extract.extract_terms(visible_text)
-                now = datetime.now().strftime('%Y%m%d%H%M')
-                t = time_created.strftime('%Y%m%d%H%M')
-                post = RssMiner.dict_of_post(url, terms_dict, t, now)
-                batch = RssMiner.package_batch_to_json(self.category.id, [post])
-                self.send_to_parent(self.category.parent_id, batch)
-                self.mined_posts_hashes.append(hash)
+                self.mine(visible_text, time_created, url)
             else:
                 print("Post already mined.")
 
