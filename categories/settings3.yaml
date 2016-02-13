@@ -1,0 +1,4 @@
+interval: '10'
+name: Science Direct Nairobi
+parent_id: http://engine.udadisi.com
+urls: http://rss.sciencedirect.com/getMessage?registrationId=JJDAJKDBQLDJNJEELJEGJLECJPGIJQGESQFIQSMDJM

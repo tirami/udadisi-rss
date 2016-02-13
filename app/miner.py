@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from BeautifulSoup import BeautifulSoup
 from collections import defaultdict
 import re
@@ -29,14 +31,38 @@ def get_link(entry):
     uri = entry['links'][0]['href']
     return uri
 
+year_regex = re.compile(r'^\d{4}$')
 
-def get_time(entry):
-    if 'published_parsed' in entry:
-        t = entry['published_parsed']
-    elif 'updated_parsed' in entry:
-        t = entry['updated_parsed']
-    dt = datetime.fromtimestamp(time.mktime(t))
-    return dt
+
+def get_time(entry, is_science_direct):
+    if is_science_direct:
+        desc = entry['description']
+        beg = desc.find('Publication date: ') + len('Publication date: ')
+        end = desc.find('<br')
+        pub_date_str = desc[beg:end].strip()
+        if u'–' in pub_date_str:  # dates like June-August 2013
+            date_start = pub_date_str.find(u'–') + 1
+            date_str = pub_date_str[date_start:]
+            # print date_str
+            dt = datetime.strptime(date_str, '%B %Y')
+        elif year_regex.match(pub_date_str):  # perhaps it's just a year, lie 1984
+            # print pub_date_str
+            dt = datetime.strptime(pub_date_str, '%Y')
+        else:  # assume format like August 2013
+            # print pub_date_str
+            dt = datetime.strptime(pub_date_str, '%B %Y')
+        return dt
+    else:
+        if 'published_parsed' in entry:
+            t = entry['published_parsed']
+        elif 'updated_parsed' in entry:
+            t = entry['updated_parsed']
+        dt = datetime.fromtimestamp(time.mktime(t))
+        return dt
+
+
+def is_science_direct(url):
+    return 'rss.sciencedirect.com' in url
 
 
 class RssMiner(Thread):
@@ -50,10 +76,11 @@ class RssMiner(Thread):
         urls = [url.strip() for url in self.category.urls.split(',')]
         for url in urls:
             self.log("Reading feed at: " + url)
+            is_sd = is_science_direct(url)
             try:
                 feed = feedparser.parse(url)
                 for entry in feed['entries']:
-                    created_time = get_time(entry)
+                    created_time = get_time(entry, is_sd)
                     text = get_summary(entry)  # not currently being mined
                     url = get_link(entry)
                     if text:

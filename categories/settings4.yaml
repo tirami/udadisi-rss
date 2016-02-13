@@ -1,0 +1,4 @@
+interval: '10'
+name: Science Direct Dhaka
+parent_id: http://engine.udadisi.com
+urls: http://rss.sciencedirect.com/getMessage?registrationId=EHHBEIHCLJHKIHIFGHIHEJIDENKHFLOKEIHEFLOIFW
