@@ -1,4 +1,4 @@
 interval: '10'
 name: Science Direct Lima
-parent_id: http://localhost:4000
+parent_id: http://engine.udadisi.com
 urls: http://rss.sciencedirect.com/getMessage?registrationId=JHJIJIJJQJJRNHKMLHKOJJKKJNNOLOJKNLSNMQQRRM

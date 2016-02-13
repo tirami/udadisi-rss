@@ -34,23 +34,29 @@ def get_link(entry):
 year_regex = re.compile(r'^\d{4}$')
 
 
-def get_time(entry, is_science_direct):
-    if is_science_direct:
-        desc = entry['description']
-        beg = desc.find('Publication date: ') + len('Publication date: ')
-        end = desc.find('<br')
-        pub_date_str = desc[beg:end].strip()
-        if u'–' in pub_date_str:  # dates like June-August 2013
-            date_start = pub_date_str.find(u'–') + 1
-            date_str = pub_date_str[date_start:]
-            # print date_str
-            dt = datetime.strptime(date_str, '%B %Y')
-        elif year_regex.match(pub_date_str):  # perhaps it's just a year, lie 1984
-            # print pub_date_str
-            dt = datetime.strptime(pub_date_str, '%Y')
-        else:  # assume format like August 2013
-            # print pub_date_str
-            dt = datetime.strptime(pub_date_str, '%B %Y')
+def get_time(entry, science_direct):
+    if science_direct:
+        try:
+            desc = entry['description']
+            beg = desc.find('Publication date: ') + len('Publication date: ')
+            end = desc.find('<br')
+            pub_date_str = desc[beg:end].strip()
+            if u'–' in pub_date_str:  # dates like June-August 2013
+                date_start = pub_date_str.find(u'–') + 1
+                date_str = pub_date_str[date_start:]
+                # print date_str
+                dt = datetime.strptime(date_str, '%B %Y')
+            elif year_regex.match(pub_date_str):  # perhaps it's just a year, lie 1984
+                # print pub_date_str
+                dt = datetime.strptime(pub_date_str, '%Y')
+            else:  # assume format like August 2013
+                # print pub_date_str
+                dt = datetime.strptime(pub_date_str, '%B %Y')
+            return dt
+        except Exception as e:
+            # print e.message, e.args
+            print 'Unable to parse date string.  Skipping article. ' + pub_date_str
+            return None
         return dt
     else:
         if 'published_parsed' in entry:
@@ -81,13 +87,14 @@ class RssMiner(Thread):
                 feed = feedparser.parse(url)
                 for entry in feed['entries']:
                     created_time = get_time(entry, is_sd)
-                    text = get_summary(entry)  # not currently being mined
-                    url = get_link(entry)
-                    if text:
-                        self.mine(text, created_time, url)
-                    else:
-                        self.mine_url(url, time)
-
+                    if created_time:  # created_time will be None if it cannot be parsed
+                        text = get_summary(entry)  # not currently being mined
+                        url = get_link(entry)
+                        print "Mining at ", url
+                        if text:
+                            self.mine(text, created_time, url)
+                        else:
+                            self.mine_url(url, time)
             except Exception as e:
                 print e.message, e.args
         self.log("Mining Complete")
@@ -156,7 +163,7 @@ class RssMiner(Thread):
         url += "/v1/minerpost"
         req = urllib2.Request(url, data, {'Content-Type': 'application/json'})
         try:
-            urllib2.urlopen(req)
+            res = urllib2.urlopen(req)
         except Exception as e:
             print "Exception while sending data to engine at the uri: {}".format(url)
             print e
