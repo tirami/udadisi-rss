@@ -1,4 +1,4 @@
 interval: '10'
-name: Science Direct Dhaka
+name: Dhaka
 parent_id: http://engine.udadisi.com
-urls: http://rss.sciencedirect.com/getMessage?registrationId=EHHBEIHCLJHKIHIFGHIHEJIDENKHFLOKEIHEFLOIFW
+urls: http://rss.sciencedirect.com/getMessage?registrationId=EHHBEIHCLJHKIHIFGHIHEJIDENKHFLOKEIHEFLOIFW, http://news.mit.edu/rss/topic/d-lab, http://www.scidev.net/global/global_rss.xml, http://www.scidev.net/global/global_rss.xml, http://www.scidev.net/global/enterprise/technology/technology_rss.xml
