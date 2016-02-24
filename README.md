@@ -1,6 +1,17 @@
-# udadisi-web
+# udadisi-rss
 
+###
 
+Udadisi was developed by [Tirami](http://www.tirami.co.uk/), a software development company, in collaboration with [Practical Action](http://practicalaction.org/) and the [University of Edinburgh Global Development Academy](http://www.ed.ac.uk/schools-departments/global-development), as part of the Technology and the Future of Work project, funded by the [Rockefeller Foundation](https://www.rockefellerfoundation.org/).
+
+### Other Components
+
+The other components that build up the suite can be found at:
+
+* https://github.com/tirami/udadisi-frontend
+* https://github.com/tirami/udadisi-engine
+* https://github.com/tirami/udadisi-twitter
+* https://github.com/tirami/udadisi-web
 
 ## Installation
 The miner is build using Python 2.7 and the [Flask framework](http://flask.pocoo.org/) and a bunch of other libraries.  Assuming you have an up-to-date Python 2.7 environment, the simplest way to install all the dependencies is to use pip and the requirements file that's in the repository.  The command is:
@@ -9,9 +20,9 @@ The miner is build using Python 2.7 and the [Flask framework](http://flask.pocoo
 
 Following that you will need to install the NLTK stopwords corpus using the NTLK downloader.  Follow the instructions [here](http://www.nltk.org/data.html) to find out how to install corpora. 
 
-The miner is then running by executing runserver.py using Python.
+The miner is then running by executing application.py using Python.
 
-`python application`
+`python application.py`
 
 ## Usage
 The miner is designed to be managed via the admin interface of the Udadisi engine.  It exposes the following API endpoints.
