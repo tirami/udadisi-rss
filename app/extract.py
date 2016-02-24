@@ -17,6 +17,24 @@ def unescape_html_chars(text):
     return h.unescape(text)
 
 
+class MLStripper(HTMLParser.HTMLParser):
+    def __init__(self):
+        self.reset()
+        self.fed = []
+
+    def handle_data(self, d):
+        self.fed.append(d)
+
+    def get_data(self):
+        return ''.join(self.fed)
+
+
+def strip_tags(html):
+    s = MLStripper()
+    s.feed(html)
+    return s.get_data()
+
+
 def remove_urls(text):
     url_re = r'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     return re.sub(url_re, '', text, flags=re.MULTILINE)
@@ -43,6 +61,7 @@ def extract_terms(text):
     text = unescape_html_chars(text)
     text = remove_twitter_usernames(text)
     text = remove_rt(text)
+    text = strip_tags(text)
     text = remove_non_whitelisted_characters(text)
     tokens = text.split(' ')
     terms = remove_stopwords(tokens)

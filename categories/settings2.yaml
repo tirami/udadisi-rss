@@ -1,7 +1,4 @@
 interval: '10'
 name: Lima
-parent_id: http://engine.udadisi.com
-urls: http://rss.sciencedirect.com/getMessage?registrationId=JHJIJIJJQJJRNHKMLHKOJJKKJNNOLOJKNLSNMQQRRM,
-  http://www.scidev.net/america-latina/america-latina_rss.xml, http://larc.iisd.org/feed/,
-  http://news.mit.edu/rss/topic/d-lab, http://www.scidev.net/global/global_rss.xml,
-  http://www.scidev.net/global/global_rss.xml, http://www.scidev.net/global/enterprise/technology/technology_rss.xml
+parent_id: http://localhost:4000
+urls: ' http://elcomercio.pe/feed/economia/peru.xml'
