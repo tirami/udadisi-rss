@@ -23,8 +23,9 @@ def remove_urls(text):
 
 
 def remove_non_whitelisted_characters(text):
-    regex = re.compile('[^@a-zA-Z ]')
-    return regex.sub(' ', text)
+    # regex = re.compile('[^@a-zA-Z ]')
+    # return regex.sub(' ', text)
+    return text
 
 
 def remove_twitter_usernames(text):
@@ -33,7 +34,7 @@ def remove_twitter_usernames(text):
 
 
 def remove_stopwords(tagged):
-    terms = [word for word in tagged if word.lower() not in stop and len(word) > 1]
+    terms = [word for (word, tag) in tagged if word.lower() not in stop and tag not in tags_to_remove and len(word) > 1]
     return terms
 
 
