@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="efdcd102-c2a3-4320-b634-4db6947d4481" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/categories/settings2.yaml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/categories/settings3.yaml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/categories/settings4.yaml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mining/views.py" afterPath="$PROJECT_DIR$/mining/views.py" />
-    </list>
+    <list default="true" id="efdcd102-c2a3-4320-b634-4db6947d4481" name="Default" comment="" />
     <ignored path="udadisi-rss.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
