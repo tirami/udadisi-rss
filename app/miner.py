@@ -14,7 +14,7 @@ from threading import Thread
 import extract
 import operator
 import feedparser
-import time
+import sched, time
 
 from BeautifulSoup import BeautifulSoup
 
@@ -78,7 +78,18 @@ class RssMiner(Thread):
         self.mined_posts_hashes = []
 
     def run(self):
-        self.log("Starting mining.")
+        s = sched.scheduler(time.time, time.sleep)
+
+        def do_mining(sc):
+            self.run_miner()
+            delay = self.category.interval
+            sc.enter(delay, 1, do_mining, (sc,))
+
+        s.enter(60, 1, do_mining, (s,))
+        s.run()
+
+    def run_miner(self):
+        self.log("Starting mining.  Time is {}".format(datetime.now()))
         urls = [url.strip() for url in self.category.urls.split(',')]
         for url in urls:
             self.log("Reading feed at: " + url)
