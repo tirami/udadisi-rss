@@ -53,11 +53,14 @@ def categories_edit(category_id):
                 else:
                     return render_template('category/edit.html', form=form, category_id=category_id, success=True)
             elif request.method == 'DELETE':
-                miner = miners[category_id]
-                miner.stop()
-                del miners[category_id]
-                Category.delete(category_id)
-                return 'Category {} deleted.'.format(category_id), 200
+                if category_id in miners:
+                    miner = miners[category_id]
+                    miner.stop()
+                    del miners[category_id]
+                    Category.delete(category_id)
+                    return 'Category {} deleted.'.format(category_id), 200
+                else:
+                    return 'Category {} not present on miner.'.format(category_id), 400
             else:
                 return 'Unsupported request method.', 400
         else:

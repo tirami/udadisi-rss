@@ -1,4 +1,0 @@
-interval: '30'
-name: Lima
-parent_id: http://localhost:4000
-urls: http://wbws.worldbank.org/feeds/xml/bd_all.xml

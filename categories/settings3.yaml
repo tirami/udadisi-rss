@@ -1,4 +1,0 @@
-interval: '10'
-name: Nairobi
-parent_id: http://engine.udadisi.com
-urls: http://rss.sciencedirect.com/getMessage?registrationId=JJDAJKDBQLDJNJEELJEGJLECJPGIJQGESQFIQSMDJM, http://www.scidev.net/sub-saharan-africa/sub-saharan-africa_rss.xml, http://africasd.iisd.org/feed/, http://news.mit.edu/rss/topic/d-lab, http://www.scidev.net/global/global_rss.xml, http://www.scidev.net/global/global_rss.xml, http://www.scidev.net/global/enterprise/technology/technology_rss.xml
