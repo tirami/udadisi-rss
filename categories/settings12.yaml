@@ -1,0 +1,4 @@
+name: Dhaka Blog
+parent_id: http://engine.udadisi.com
+interval: 360
+urls: http://www.scidev.net/south-asia/south-asia_rss.xml

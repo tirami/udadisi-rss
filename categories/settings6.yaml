@@ -1,0 +1,4 @@
+name: Nairobi News
+parent_id: http://engine.udadisi.com
+interval: 360
+urls: http://www.businessdailyafrica.com/-/539444/539444/-/view/asFeed/-/xs2vhb/-/index.xml, http://www.standardmedia.co.ke/rss/business.php

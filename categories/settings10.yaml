@@ -1,0 +1,4 @@
+name: Lima Blog
+parent_id: http://engine.udadisi.com
+interval: 360
+urls: http://www.scidev.net/america-latina/america-latina_rss.xml, http://larc.iisd.org/feed/, https://solucionespracticasla.wordpress.com/feed/

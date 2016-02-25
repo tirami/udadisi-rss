@@ -1,0 +1,4 @@
+name: Dhaka Academic
+parent_id: http://engine.udadisi.com
+interval: 360
+urls: http://rss.sciencedirect.com/getMessage?registrationId=EHHBEIHCLJHKIHIFGHIHEJIDENKHFLOKEIHEFLOIFW

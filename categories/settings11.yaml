@@ -1,0 +1,4 @@
+name: Nairobi Blog
+parent_id: http://engine.udadisi.com
+interval: 360
+urls: http://www.scidev.net/sub-saharan-africa/sub-saharan-africa_rss.xml, http://africasd.iisd.org/feed/, http://www.africaresearchinstitute.org/feed/

@@ -1,0 +1,4 @@
+name: Lima News
+parent_id: http://engine.udadisi.com
+interval: 360
+urls: http://elcomercio.pe/feed/lima.xml, http://elcomercio.pe/feed/economia/peru.xml
