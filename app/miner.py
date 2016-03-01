@@ -175,6 +175,9 @@ class RssMiner(Thread):
         req = urllib2.Request(url, data, {'Content-Type': 'application/json'})
         try:
             res = urllib2.urlopen(req)
+            code = res.getcode()
+            msg = res.read()
+            print("Batch send request result code {}, message {}".format(code, msg))
         except Exception as e:
             print "Exception while sending data to engine at the uri: {}".format(url)
             print e
